@@ -16,10 +16,6 @@ viewer.terrainProvider = new Cesium.CesiumTerrainProvider({
     url: 'https://api.maptiler.com/tiles/terrain-quantized-mesh/?key=Evnp0EGPeIhWl5Dv5t4u'
 });
 
-
-
-
-
 // viewer.scene.screenSpaceCameraController.enableZoom = false;
 viewer.animation.container.style.visibility = "hidden";
 viewer.timeline.container.style.visibility = "hidden";
@@ -34,6 +30,21 @@ viewer.camera.flyTo({
     }
 });
 
+const content = document.querySelector('.container')
+const loading = document.querySelector('.loading')
+
+const checkTiles = async () => {
+    if (viewer.scene.globe.tilesLoaded === false) {
+        console.log(false)
+        setInterval(() => {
+            checkTiles()
+        }, 1000);
+    } else {
+        content.style.display = "block"
+        loading.style.display = "none"
+    }
+}
+checkTiles()
 
 const container = document.getElementsByClassName('container')[0];
 
