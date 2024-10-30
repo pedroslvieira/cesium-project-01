@@ -8,15 +8,14 @@ Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOi
 
 // Initialize the Cesium Viewer in the HTML element with the `cesiumContainer` ID.
 const viewer = new Cesium.Viewer('cesiumContainer', {
-    // terrainProvider: Cesium.createWorldTerrain(),
     fullscreenElement: 'cesiumContainer'
 });
 
-viewer.terrainProvider = new Cesium.CesiumTerrainProvider({
-    url: 'https://api.maptiler.com/tiles/terrain-quantized-mesh/?key=Evnp0EGPeIhWl5Dv5t4u'
-});
+viewer.terrainProvider = await Cesium.CesiumTerrainProvider.fromUrl('https://api.maptiler.com/tiles/terrain-quantized-mesh/?key=Evnp0EGPeIhWl5Dv5t4u', {requestVertexNormals: true});
 
-// viewer.scene.screenSpaceCameraController.enableZoom = false;
+viewer.scene.globe.enableLighting = true;
+viewer.clock.currentTime = Cesium.JulianDate.fromIso8601("2023-01-01T12:00:00");
+viewer.scene.screenSpaceCameraController.enableZoom = true;
 viewer.animation.container.style.visibility = "hidden";
 viewer.timeline.container.style.visibility = "hidden";
 viewer.forceResize();
